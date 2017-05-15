@@ -61,7 +61,10 @@
     console.table(sortedYearInvetors);
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+    // const links = document.querySelectorAll('.mw-category a');
+    // const blvds = Array.from(links)
+    //   .map(anchor => anchor.textContent)
+    //   .filter(blvd => blvd.includes('de'));
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
@@ -75,14 +78,14 @@
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-    const breakdown = data.reduce((count, item) => {
-      if (Object.hasOwnProperty.call(count, item)) {
-        count[item]++;
-      } else {
-        count[item] = 1;
+    const breakdown = data.reduce((obj, item) => {
+      if (!obj[item]) {
+        obj[item] = 0;
       }
 
-      return count;
+      obj[item]++;
+
+      return obj;
     }, {});
     console.log(breakdown);
   </script>
