@@ -99,6 +99,60 @@
   </div>
 
 <script>
+  //let holdingShift = false;
+  //const checkboxes = Array.from(document.querySelectorAll('[type="checkbox"]'));
+  const checkboxes = document.querySelectorAll('[type="checkbox"]');
+  let lastChecked;
+
+  function handleCheck(e) {
+    let inBetween = false;
+
+    if (e.shiftKey && this.checked) {
+
+      checkboxes.forEach(checkbox => {
+        if (checkbox === this || checkbox === lastChecked) {
+          inBetween = !inBetween;
+        }
+
+        if (inBetween) {
+          checkbox.checked = true;
+        }
+      });
+    }
+
+    lastChecked = this;
+  }
+
+  //  My solution
+  function toggleCheckbox(e) {
+    if (!this.checked) return;
+    const currentChecked = checkboxes.findIndex(checkbox => checkbox === this);
+
+    if (!holdingShift) {
+      lastChecked = currentChecked;
+      return;
+    }
+    checkboxes.forEach((checkbox, index) => {
+      let inBetween = false;
+      if (lastChecked > currentChecked) {
+        inBetween = (index >= currentChecked && index <= lastChecked);
+      } else {
+        inBetween = (index >= lastChecked && index <= currentChecked);
+      }
+
+      if (inBetween) {
+        checkbox.checked = true;
+      }
+      return;
+    });
+
+    lastChecked = currentChecked;
+  }
+
+  // window.addEventListener('keydown', (e) => holdingShift = e.keyCode === 16);
+  // window.addEventListener('keyup', () => holdingShift = false);
+  checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+  //checkboxes.forEach(checkbox => checkbox.addEventListener('change', toggleCheckbox));
 </script>
 </body>
 </html>
