@@ -58,6 +58,28 @@
       };
     }
 
+    const images = document.querySelectorAll('img.slide-in');
+
+    function checkSlide(e) {
+      images.forEach(image => {
+        const windowScrolled = window.pageYOffset + window.innerHeight;
+        const midPosition = image.height / 2 + image.offsetTop;
+        //  window.scrollY here works as well? Not sure.
+        const imageBottom = image.offsetTop + image.height;
+
+        const isHalfShown = windowScrolled > midPosition;
+        const isNotScrolledPast = window.scrollY < imageBottom;
+
+        if (isHalfShown && isNotScrolledPast) {
+          image.classList.add('active');
+        } else {
+          image.classList.remove('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', debounce(checkSlide));
+
   </script>
 
   <style>
