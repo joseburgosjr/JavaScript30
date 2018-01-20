@@ -26,7 +26,7 @@ function paintToCanvas() {
     let pixels = ctx.getImageData(0, 0, width, height);
 
     //pixels = redEffect(pixels);
-    //pixels = rgbSplit(pixels);
+    pixels = rgbSplit(pixels);
     pixels = greenScreen(pixels);
     ctx.putImageData(pixels, 0, 0);
     //ctx.globalAlpha = 0.1;
@@ -50,7 +50,6 @@ function greenScreen(pixels) {
     levels[input.name] = input.value;
   });
 
-  console.log(levels);
   for (let i=0;i<pixels.data.length;i+=4) {
     red = pixels.data[i];
     green = pixels.data[i+1];
